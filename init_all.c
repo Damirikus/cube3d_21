@@ -21,11 +21,31 @@ t_data *ft_init(int argc, char **argv)
 	data->hero_position = malloc(sizeof(t_position_hero));
 	data->full_array = init_map_array(argv[1], data);
 	cut_array(data);
-	data->start_position_int.planeX = 0;
-	data->start_position_int.planeY = 0.66;
+	init_int_array(data);
+	data->start_position_int.plane_x = 0;
+	data->start_position_int.plane_y = 0.66;
 	data->start_position_int.time = 0;
 	data->start_position_int.oldTime = 0;
 	return (data);
+}
+
+void init_int_array(t_data *data)
+{
+	data->map_array_int = malloc(sizeof(int *) * (data->size_map.height));
+	int i;
+	int k;
+	i = 0;
+	while (data->map_array[i])
+	{
+		data->map_array_int[i] = malloc(sizeof(int) * ft_strlen(data->map_array[i]));
+		k = 0;
+		while (data->map_array[i][k])
+		{
+			data->map_array_int[i][k] = ft_atoi_for_char(data->map_array[i][k]);
+			k++;
+		}
+		i++;
+	}
 }
 
 void cut_array(t_data *data)

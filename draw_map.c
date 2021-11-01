@@ -19,31 +19,31 @@ int ft_draw_map(t_data *data)
 		{
 			if (data->map_array[i][k] == 'N')
 			{
-				data->start_position_int.posX = k;
-				data->start_position_int.posY = i;
-				data->start_position_int.dirX = 0;
-				data->start_position_int.dirY = -1;
+				data->start_position_int.pos_x = i;
+				data->start_position_int.pos_y = k;
+				data->start_position_int.dir_x = 0;
+				data->start_position_int.dir_y = -1;
 			}
 			else if (data->map_array[i][k] == 'S')
 			{
-				data->start_position_int.posX = k;
-				data->start_position_int.posY = i;
-				data->start_position_int.dirX = 0;
-				data->start_position_int.dirY = 1;
+				data->start_position_int.pos_x = i;
+				data->start_position_int.pos_y = k;
+				data->start_position_int.dir_x = 0;
+				data->start_position_int.dir_y = 1;
 			}
 			else if (data->map_array[i][k] == 'E')
 			{
-				data->start_position_int.posX = k;
-				data->start_position_int.posY = i;
-				data->start_position_int.dirX = 1;
-				data->start_position_int.dirY = 0;
+				data->start_position_int.pos_x = i;
+				data->start_position_int.pos_y = k;
+				data->start_position_int.dir_x = 1;
+				data->start_position_int.dir_y = 0;
 			}
 			else if (data->map_array[i][k] == 'W')
 			{
-				data->start_position_int.posX = k;
-				data->start_position_int.posY = i;
-				data->start_position_int.dirX = -1;
-				data->start_position_int.dirY = 0;
+				data->start_position_int.pos_x = i;
+				data->start_position_int.pos_y = k;
+				data->start_position_int.dir_x = -1;
+				data->start_position_int.dir_y = 0;
 			}
 			if (data->map_array[i][k] == '1')
 			{

@@ -38,3 +38,16 @@ int	ft_atoi(const char *str)
 	}
 	return (nb * k);
 }
+
+
+int ft_atoi_for_char(char c)
+{
+	int	nb;
+
+	nb = 0;
+	if (c >= 48 && c <= 57)
+		nb = 10 * nb + (c - 48);
+	else
+		nb = 5;
+	return (nb);
+}

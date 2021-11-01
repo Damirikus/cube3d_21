@@ -5,14 +5,17 @@
 # include "./minilibx/mlx.h"
 # include "get_next_line.h"
 # include <fcntl.h>
-
-# define PIXEL_MAP 32
+# include <math.h>
+# define PIXEL_MAP 16
+# define PIXEL_WIDTH 1920
+# define PIXEL_HEIGHT 1080
 
 typedef struct s_xpm
 {
 	void	*img_ptr_xpm;
 	int		width_img;
 	int		height_img;
+	char 	*path;
 }			t_xpm;
 
 typedef struct s_size_map
@@ -32,8 +35,14 @@ typedef struct s_position_hero
 
 typedef struct s_xy
 {
-	int	x;
-	int	y;
+	double	pos_x;
+	double	pos_y;
+	double dir_x;
+	double dir_y;
+	double plane_x;
+	double plane_y;
+	double time; // время текущего кадра
+	double oldTime; // время предыдущего кадра
 }		t_xy;
 
 typedef struct s_color
@@ -61,10 +70,12 @@ typedef struct s_data
 	t_img_addr img_buffer;
 
 
+	int **map_array_int;
+	char			**full_array;
 	char			**map_array;
 	t_position_hero *hero_position;
-
-
+	t_xy start_position_int;
+	t_size_map size_map;
 
 	t_xpm north_texture;
 	t_xpm south_textur;
@@ -86,4 +97,7 @@ void my_mlx_pixel_put(t_img_addr *img, int x, int y, int color);
 void ft_start_game(t_data *data);
 int ft_game(t_data *data);
 int ft_rgb_handler(int r, int g, int b);
+void cut_array(t_data *data);
+int ft_draw_map(t_data *data);
+void init_int_array(t_data *data);
 #endif
