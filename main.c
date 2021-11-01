@@ -15,54 +15,39 @@ int main(int argc, char **argv)
 }
 
 
-int ft_draw_map(t_data *data)
+void ft_draw_buffer_tmp(t_data *data)
 {
-	int i;
-	int k;
+	data->img_buffer.img = mlx_new_image(data->mlx, PIXEL_WIDTH, PIXEL_HEIGHT);
+	data->img_buffer.addr = mlx_get_data_addr(data->img_buffer.img, &data->img_buffer.bits_per_pixel, &data->img_buffer.line_length, &data->img_buffer.endian);
+
 	int x;
 	int y;
-	int a, b;
-	data->img_map.img = mlx_new_image(data->mlx, 1920, 1080);
-	data->img_map.addr = mlx_get_data_addr(data->img_map.img, &data->img_map.bits_per_pixel, &data->img_map.line_length, &data->img_map.endian);
-	i = 8;
-	while (data->map_array[i])
+	y = 0;
+	while (y < PIXEL_HEIGHT)
 	{
-		k = 0;
-		while (k < ft_strlen(data->map_array[i]))
+		x = 0;
+		while (x < PIXEL_WIDTH)
 		{
-			if (data->map_array[i][k] == '1')
-			{
-				x = i * PIXEL_MAP;
-				y = k * PIXEL_MAP;
-				a = 0;
-				while (a < PIXEL_MAP)
-				{
-					b = 0;
-					while (b < PIXEL_MAP)
-					{
-						my_mlx_pixel_put(&data->img_map, y + a, x + b,ft_rgb_handler(122,122,122));
-						b++;
-					}
-					a++;
-				}
-				
-
-			}
-			k++;
+			my_mlx_pixel_put(&data->img_buffer, x, y, ft_rgb_handler(0, 255, 222));
+			x++;
 		}
-		i++;
+		y++;
 	}
-
-
-	return 0;
 }
+
 
 void ft_start_game(t_data *data)
 {
 	data->mlx = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "Cube 3D");
+	data->mlx_win = mlx_new_window(data->mlx, PIXEL_WIDTH, PIXEL_HEIGHT, "Cube 3D");
 	ft_draw_map(data);
-	
+	ft_draw_buffer_tmp(data);
+
+	printf("posX = %f\nposY = %f\n", data->start_position_int.posX, data->start_position_int.posY);
+	printf("dirX = %f\ndirY = %f\n", data->start_position_int.dirX, data->start_position_int.dirY);
+	printf("planeX = %f\nplaneY = %f\n", data->start_position_int.planeX, data->start_position_int.planeY);
+	write(1, "\n", 1);
+	printf("width = %d\nheight = %d\n", data->size_map.width, data->size_map.height);
 
 	// mlx_hook(data->mlx_win, 2, 1L << 0, ft_key_handler, main);
 	mlx_hook(data->mlx_win, 17, 1L << 17, ft_mlx_close, data);
@@ -73,13 +58,25 @@ void ft_start_game(t_data *data)
 
 
 
+
+
 int ft_game(t_data *data)
 {
 
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_buffer.img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_map.img, ((PIXEL_WIDTH / 2) - ((data->size_map.width /2) * PIXEL_MAP)), (PIXEL_HEIGHT - (data->size_map.height * PIXEL_MAP)));
 
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_map.img, 0, 0);
+	int x;
+	x = 0;
+	while (x < PIXEL_WIDTH)
+	{
+		double cameraX = 2 * x / (double)PIXEL_WIDTH - 1;
+		x++;
+	}
+
 	return (0);
 }
+
 
 
 
