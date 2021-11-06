@@ -7,8 +7,10 @@
 # include <fcntl.h>
 # include <math.h>
 # define PIXEL_MAP 16
-# define PIXEL_WIDTH 1920
-# define PIXEL_HEIGHT 1080
+# define PIXEL_WIDTH 1280
+# define PIXEL_HEIGHT 640
+# define MOVE_SPEED 0.1
+# define ROT_SPEED 0.06
 
 typedef struct s_xpm
 {
@@ -24,15 +26,6 @@ typedef struct s_size_map
 	int	height;
 }		t_size_map;
 
-typedef struct s_position_hero
-{
-	float		pos_hero_x;
-	float		pos_hero_y;
-	float		dir;
-	float		start;
-	float		end;
-}		t_position_hero;
-
 typedef struct s_xy
 {
 	double	pos_x;
@@ -44,6 +37,15 @@ typedef struct s_xy
 	double time; // время текущего кадра
 	double oldTime; // время предыдущего кадра
 }		t_xy;
+
+//typedef struct s_raycasting
+//{
+//	double camera_x;
+//	double raydir_x;
+//	double raydir_y;
+//	int map_x;
+//	int map_y;
+//} t_raycasting;
 
 typedef struct s_color
 {
@@ -69,11 +71,9 @@ typedef struct s_data
 	t_img_addr img_map;
 	t_img_addr img_buffer;
 
-
 	int **map_array_int;
-	char			**full_array;
-	char			**map_array;
-	t_position_hero *hero_position;
+	char **full_array;
+	char **map_array;
 	t_xy start_position_int;
 	t_size_map size_map;
 
@@ -84,7 +84,6 @@ typedef struct s_data
 
 	t_color floor;
 	t_color ceiling;
-
 
 }					t_data;
 
@@ -100,4 +99,5 @@ int ft_rgb_handler(int r, int g, int b);
 void cut_array(t_data *data);
 int ft_draw_map(t_data *data);
 void init_int_array(t_data *data);
+int ft_key_handler(int key, t_data *data);
 #endif

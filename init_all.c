@@ -18,7 +18,6 @@ t_data *ft_init(int argc, char **argv)
 
 	t_data *data;
 	data = malloc(sizeof(t_data));
-	data->hero_position = malloc(sizeof(t_position_hero));
 	data->full_array = init_map_array(argv[1], data);
 	cut_array(data);
 	init_int_array(data);
