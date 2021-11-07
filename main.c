@@ -24,13 +24,18 @@ int main(int argc, char **argv)
 		printf("\n");
 		i++;
 	}
-
 	ft_start_game(data);
 
 	return 0;
 }
 
 
+int get_all_colors_texture(t_data *data, int **colors, char *path)
+{
+	data->north_texture.img_ptr_xpm = mlx_xpm_file_to_image(data->mlx, "./xpm/wall1.xpm", &data->north_texture.width_img, &data->north_texture.height_img);
+
+	return 0;
+}
 
 void ft_start_game(t_data *data)
 {
@@ -38,59 +43,17 @@ void ft_start_game(t_data *data)
 	data->mlx_win = mlx_new_window(data->mlx, PIXEL_WIDTH, PIXEL_HEIGHT, "Cube 3D");
 	ft_draw_map(data);
 
+
+	get_all_colors_texture(data, data->arrays_for_color->color_north, data->north_texture.path);
+
+
+	data->south_texture.img_ptr_xpm = mlx_xpm_file_to_image(data->mlx, "./xpm/wall2.xpm", &data->south_texture.width_img, &data->south_texture.height_img);
+
 	mlx_hook(data->mlx_win, 2, 1L << 0, ft_key_handler, data);
 	mlx_hook(data->mlx_win, 17, 1L << 17, ft_mlx_close, data);
 	mlx_loop_hook(data->mlx, ft_game, data);
 	mlx_loop(data->mlx);
 }
-
-
-int ft_key_handler(int key, t_data *data)
-{
-	if (key == 53)
-	{
-//		ft_free_all(main);
-		exit(1);
-	}
-	if (key == 13)
-	{
-		if (!data->map_array_int[(int)(data->start_position_int.pos_x + data->start_position_int.dir_x * MOVE_SPEED)]
-		[(int)(data->start_position_int.pos_y)])
-			data->start_position_int.pos_x += data->start_position_int.dir_x * MOVE_SPEED;
-		if (!data->map_array_int[(int)(data->start_position_int.pos_x)]
-		[(int)(data->start_position_int.pos_y + data->start_position_int.dir_y * MOVE_SPEED)])
-		data->start_position_int.pos_y += data->start_position_int.dir_y * MOVE_SPEED;
-	}
-	if (key == 1)
-	{
-		if (!data->map_array_int[(int)(data->start_position_int.pos_x + data->start_position_int.dir_x * MOVE_SPEED)]
-		[(int)(data->start_position_int.pos_y)])
-			data->start_position_int.pos_x -= data->start_position_int.dir_x * MOVE_SPEED;
-		if (!data->map_array_int[(int)(data->start_position_int.pos_x)]
-		[(int)(data->start_position_int.pos_y + data->start_position_int.dir_y * MOVE_SPEED)])
-			data->start_position_int.pos_y -= data->start_position_int.dir_y * MOVE_SPEED;
-	}
-	if (key == 2)
-	{
-		double  old_dir_x = data->start_position_int.dir_x;
-		data->start_position_int.dir_x =data->start_position_int.dir_x * cos(-ROT_SPEED) - data->start_position_int.dir_y * sin(-ROT_SPEED);
-		data->start_position_int.dir_y = old_dir_x * sin(-ROT_SPEED) + data->start_position_int.dir_y * cos(-ROT_SPEED);
-		double old_plane_x = data->start_position_int.plane_x;
-		data->start_position_int.plane_x = data->start_position_int.plane_x * cos(-ROT_SPEED) - data->start_position_int.plane_y * sin(-ROT_SPEED);
-		data->start_position_int.plane_y = old_plane_x * sin(-ROT_SPEED) + data->start_position_int.plane_y * cos(-ROT_SPEED);
-	}
-	if (key == 0)
-	{
-		double  old_dir_x = data->start_position_int.dir_x;
-		data->start_position_int.dir_x = data->start_position_int.dir_x * cos(ROT_SPEED) - data->start_position_int.dir_y * sin(ROT_SPEED);
-		data->start_position_int.dir_y = old_dir_x * sin(ROT_SPEED) + data->start_position_int.dir_y * cos(ROT_SPEED);
-		double old_plane_x = data->start_position_int.plane_x;
-		data->start_position_int.plane_x = data->start_position_int.plane_x * cos(ROT_SPEED) - data->start_position_int.plane_y * sin(ROT_SPEED);
-		data->start_position_int.plane_y = old_plane_x * sin(ROT_SPEED) + data->start_position_int.plane_y * cos(ROT_SPEED);
-	}
-	return 0;
-}
-
 
 
 int ft_game(t_data *data)
@@ -164,40 +127,78 @@ int ft_game(t_data *data)
 		else
 			perp_wall_dist = (side_dist_y - delta_dist_y);
 		int line_height = (int) (PIXEL_HEIGHT / perp_wall_dist);
-		int draw_start = -line_height / 2 + PIXEL_HEIGHT / 2;
+
+		int pitch = 100;
+		int draw_start = -line_height / 2 + PIXEL_HEIGHT / 2 + pitch;
 		if (draw_start < 0)
 			draw_start = 0;
-		int draw_end = line_height / 2 + PIXEL_HEIGHT / 2;
+		int draw_end = line_height / 2 + PIXEL_HEIGHT / 2 + pitch;
 		if (draw_end >= PIXEL_HEIGHT)
 			draw_end = PIXEL_HEIGHT - 1;
-		int color = ft_rgb_handler(110, 219, 0);
-		if (side == 1)
-			color /= 2;
-		int i;
-		i = 0;
-		while (i < draw_start)
+
+
+		int tex_num = data->map_array_int[map_x][map_y] - 1;
+		double wall_x;
+		if (side == 0)
+			wall_x = data->start_position_int.pos_y + perp_wall_dist * raydir_y;
+		else
+			wall_x = data->start_position_int.pos_x + perp_wall_dist * raydir_x;
+		wall_x -= floor(wall_x);
+
+		int tex_x = (int)(wall_x * (double)(TEX_WIDTH));
+		if (side == 0 && raydir_x > 0)
+			tex_x = TEX_WIDTH - tex_x - 1;
+		if (side == 1 && raydir_y < 0)
+			tex_x = TEX_WIDTH - tex_x - 1;
+
+		double step = 1.0  * TEX_HEIGHT / line_height;
+
+		double tex_pos = (draw_start - pitch - PIXEL_HEIGHT/2 + line_height/2) * step;
+		int y;
+		y = draw_start;
+		while (y < draw_end)
 		{
-			my_mlx_pixel_put(&data->img_buffer, x, i, ft_rgb_handler(110, 219, 253));
-			i++;
+			int tex_y = (int)(tex_pos) & (PIXEL_HEIGHT - 1);
+			tex_pos += step;
+
+			y++;
 		}
-		int k;
-		k = draw_end;
-		while (k < PIXEL_HEIGHT)
-		{
-			my_mlx_pixel_put(&data->img_buffer, x, k, ft_rgb_handler(119, 69, 3));
-			k++;
-		}
-		int tmp = draw_start;
-		while (tmp <= draw_end)
-		{
-			my_mlx_pixel_put(&data->img_buffer, x, tmp, color);
-			tmp++;
-		}
+
+
+
+
+
+
+
+//		int color = ft_rgb_handler(110, 219, 0);
+//		if (side == 1)
+//			color /= 2;
+//		int i;
+//		i = 0;
+//		while (i < draw_start)
+//		{
+//			my_mlx_pixel_put(&data->img_buffer, x, i, ft_rgb_handler(110, 219, 253));
+//			i++;
+//		}
+//		int k;
+//		k = draw_end;
+//		while (k < PIXEL_HEIGHT)
+//		{
+//			my_mlx_pixel_put(&data->img_buffer, x, k, ft_rgb_handler(119, 69, 3));
+//			k++;
+//		}
+//		int tmp = draw_start;
+//		while (tmp <= draw_end)
+//		{
+//			my_mlx_pixel_put(&data->img_buffer, x, tmp, color);
+//			tmp++;
+//		}
 		x++;
 	}
 
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_buffer.img, 0, 0);
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_map.img, ((PIXEL_WIDTH / 2) - ((data->size_map.width /2) * PIXEL_MAP)), (PIXEL_HEIGHT - (data->size_map.height * PIXEL_MAP)));
+//	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_map.img, ((PIXEL_WIDTH / 2) - ((data->size_map.width /2) * PIXEL_MAP)), (PIXEL_HEIGHT - (data->size_map.height * PIXEL_MAP)));
+	mlx_destroy_image(data->mlx, data->img_buffer.img);
 	return (0);
 }
 

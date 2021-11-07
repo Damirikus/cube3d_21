@@ -7,10 +7,12 @@
 # include <fcntl.h>
 # include <math.h>
 # define PIXEL_MAP 16
-# define PIXEL_WIDTH 1280
-# define PIXEL_HEIGHT 640
+# define PIXEL_WIDTH 1920
+# define PIXEL_HEIGHT 1080
 # define MOVE_SPEED 0.1
 # define ROT_SPEED 0.06
+# define TEX_WIDTH 128
+# define TEX_HEIGHT 128
 
 typedef struct s_xpm
 {
@@ -63,6 +65,15 @@ typedef struct s_img_addr
 	int				endian;	
 } t_img_addr;
 
+typedef struct s_arrays
+{
+	int **color_north;
+	int **color_south;
+	int **color_west;
+	int **color_east;
+
+}t_arrays;
+
 typedef struct s_data
 {
 	
@@ -77,10 +88,12 @@ typedef struct s_data
 	t_xy start_position_int;
 	t_size_map size_map;
 
+	t_arrays *arrays_for_color;
+
 	t_xpm north_texture;
-	t_xpm south_textur;
-	t_xpm west_textur;
-	t_xpm east_textur;
+	t_xpm south_texture;
+	t_xpm west_texture;
+	t_xpm east_texture;
 
 	t_color floor;
 	t_color ceiling;

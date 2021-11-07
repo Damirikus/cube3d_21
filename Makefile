@@ -6,7 +6,7 @@ CC		= gcc
 
 HEADER		= cub3d.h
 
-SRCS	= main.c init_all.c get_next_line.c get_next_line_utils.c draw_map.c
+SRCS	= main.c init_all.c get_next_line.c get_next_line_utils.c draw_map.c moves.c
 
 %.o: 	%.c $(HEADER)
 		$(CC) $(CFLAGS) -c $< -o $@

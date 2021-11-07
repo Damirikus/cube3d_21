@@ -19,6 +19,15 @@ t_data *ft_init(int argc, char **argv)
 	t_data *data;
 	data = malloc(sizeof(t_data));
 	data->full_array = init_map_array(argv[1], data);
+	data->arrays_for_color = malloc(sizeof(t_arrays));
+
+	data->north_texture.path = malloc(16);
+	data->north_texture.path[15] = '\0';
+	data->north_texture.path = "./xpm/wall1.xpm";
+	data->south_texture.path = malloc(16);
+	data->south_texture.path[15] = '\0';
+	data->south_texture.path = "./xpm/wall2.xpm";
+
 	cut_array(data);
 	init_int_array(data);
 	data->start_position_int.plane_x = 0;
