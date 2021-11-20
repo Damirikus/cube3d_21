@@ -7,8 +7,8 @@
 # include <fcntl.h>
 # include <math.h>
 # define PIXEL_MAP 16
-# define PIXEL_WIDTH 1920
-# define PIXEL_HEIGHT 1080
+# define PIXEL_WIDTH 1280
+# define PIXEL_HEIGHT 640
 # define MOVE_SPEED 0.1
 # define ROT_SPEED 0.06
 # define TEX_WIDTH 128

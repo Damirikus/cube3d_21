@@ -19,11 +19,11 @@ int ft_key_handler(int key, t_data *data)
 	}
 	if (key == 1)
 	{
-		if (!data->map_array_int[(int)(data->start_position_int.pos_x + data->start_position_int.dir_x * MOVE_SPEED)]
+		if (!data->map_array_int[(int)(data->start_position_int.pos_x - data->start_position_int.dir_x * MOVE_SPEED)]
 		[(int)(data->start_position_int.pos_y)])
 			data->start_position_int.pos_x -= data->start_position_int.dir_x * MOVE_SPEED;
 		if (!data->map_array_int[(int)(data->start_position_int.pos_x)]
-		[(int)(data->start_position_int.pos_y + data->start_position_int.dir_y * MOVE_SPEED)])
+		[(int)(data->start_position_int.pos_y - data->start_position_int.dir_y * MOVE_SPEED)])
 			data->start_position_int.pos_y -= data->start_position_int.dir_y * MOVE_SPEED;
 	}
 	if (key == 2)
