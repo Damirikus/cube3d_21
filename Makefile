@@ -6,7 +6,19 @@ CC		= gcc
 
 HEADER		= cub3d.h
 
-SRCS	= main.c init_all.c get_next_line.c get_next_line_utils.c draw_map.c moves.c
+SRCS	= check_type.c \
+          color.c \
+          draw_map.c \
+          get_next_line.c \
+          get_next_line_utils.c \
+          init_all.c \
+          list_to_map.c \
+          main.c \
+          map_func.c \
+          moves.c \
+          parser.c \
+          parsing_gnl.c \
+          utils.c
 
 %.o: 	%.c $(HEADER)
 		$(CC) $(CFLAGS) -c $< -o $@

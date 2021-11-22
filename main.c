@@ -10,20 +10,35 @@ int main(int argc, char **argv)
 	}
 	data = ft_init(argc, argv);
 
-	int i;
-	i = 0;
-	while (data->map_array[i])
+	int i, j;
+	i =0;
+
+
+	while(i < data->maplines-1 )
 	{
-		int k;
-		k = 0;
-		while (k < ft_strlen(data->map_array[i]))
+		j = 0;
+		while (j < (int)ft_stlen(data->map[i]))
 		{
-			printf("%d ", data->map_array_int[i][k]);
-			k++;
+			printf("%d",data->map_array_int[i][j]);
+			j++;
 		}
-		printf("\n");
 		i++;
+		printf("\n");
 	}
+	printf("CHAR ARRAY\n");
+	i = 0;
+	while(data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			printf("%c",data->map[i][j]);
+			j++;
+		}
+		i++;
+		printf("\n");
+	}
+
 	ft_start_game(data);
 
 	return 0;

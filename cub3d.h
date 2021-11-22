@@ -6,9 +6,11 @@
 # include "get_next_line.h"
 # include <fcntl.h>
 # include <math.h>
+#include <stdio.h>
+
 # define PIXEL_MAP 16
-# define PIXEL_WIDTH 1280
-# define PIXEL_HEIGHT 640
+# define PIXEL_WIDTH 1920
+# define PIXEL_HEIGHT 1080
 # define MOVE_SPEED 0.1
 # define ROT_SPEED 0.06
 # define TEX_WIDTH 128
@@ -76,15 +78,26 @@ typedef struct s_arrays
 
 typedef struct s_data
 {
-	
+	t_list			*list;
+	int 			maplines;
+	int				strlen_up;
+	int				strlen_bot;
+	int				map_str_len;
+	int player;
+	int				n;
+	int flag;
+	char			**map;
+	int 	color_flag;
+	int 	close_flag;
+
+
+
 	void			*mlx;
 	void			*mlx_win;
 	t_img_addr img_map;
 	t_img_addr img_buffer;
 
 	int **map_array_int;
-	char **full_array;
-	char **map_array;
 	t_xy start_position_int;
 	t_size_map size_map;
 
@@ -113,4 +126,22 @@ void cut_array(t_data *data);
 int ft_draw_map(t_data *data);
 void init_int_array(t_data *data);
 int ft_key_handler(int key, t_data *data);
+int ft_atoi_for_char(char c);
+
+//parser
+
+
+
+int			valid_map(char **map, int i, int j, t_data *d);
+void		check_type(char *argv);
+int			parser(int argc, char **argv, t_data *d);
+int			confirm_pars(t_data *d);
+int			parsing_gnl_line(t_data *d, char *line);
+int			parsing_path(t_data *d, char *line);
+int			list_to_map(int argc, t_data *d);
+int			check_path(char *path, t_xpm *x, t_data *d);
+int			check_color(char *line, t_color *c, t_data *d);
+int			ft_str_empty(const char *line);
+int			ft_empt(const char c);
+int			map_error(int code);
 #endif
