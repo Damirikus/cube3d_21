@@ -20,7 +20,7 @@ t_data *ft_init(int argc, char **argv)
 	data = malloc(sizeof(t_data));
 	data->arrays_for_color = malloc(sizeof(t_arrays));
 	data->start_position_int.plane_x = 0;
-	data->start_position_int.plane_y = 0.66;
+	data->start_position_int.plane_y = 0.7;
 	data->start_position_int.time = 0;
 	data->start_position_int.oldTime = 0;
 	check_type(argv[1]);

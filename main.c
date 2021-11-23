@@ -3,15 +3,14 @@
 int main(int argc, char **argv)
 {
 	t_data *data;
+
 	if (argc != 2)
 	{
 		printf("Error: ./cub3D <filename>\n");
 		return (0);
 	}
 	data = ft_init(argc, argv);
-
 	ft_start_game(data);
-
 	return 0;
 }
 
@@ -150,6 +149,7 @@ int ft_game(t_data *data)
 		if (draw_end >= PIXEL_HEIGHT)
 			draw_end = PIXEL_HEIGHT - 1;
 
+
 		double wall_x;
 		if (side == 0)
 			wall_x = data->start_position_int.pos_y + perp_wall_dist * raydir_y;
@@ -178,16 +178,16 @@ int ft_game(t_data *data)
 			if (side == 0)
 			{
 				if (step_x > 0)
-					color = data->arrays_for_color->color_north[tex_x][tex_y];
-				else
 					color = data->arrays_for_color->color_south[tex_x][tex_y];
+				else
+					color = data->arrays_for_color->color_north[tex_x][tex_y];
 			}
 			else
 			{
 				if (step_y < 0)
-					color = data->arrays_for_color->color_east[tex_x][tex_y];
-				else
 					color = data->arrays_for_color->color_west[tex_x][tex_y];
+				else
+					color = data->arrays_for_color->color_east[tex_x][tex_y];
 				color = (color >> 1) & 8355711;
 			}
 			my_mlx_pixel_put(&data->img_buffer, x, y, color);
@@ -209,13 +209,13 @@ int ft_game(t_data *data)
 			my_mlx_pixel_put(&data->img_buffer, x, k, ft_rgb_handler(data->floor.r, data->floor.g, data->floor.b));
 			k++;
 		}
-
 		x++;
 	}
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_buffer.img, 0, 0);
 	mlx_destroy_image(data->mlx, data->img_buffer.img);
 	return (0);
 }
+
 
 
 

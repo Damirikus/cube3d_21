@@ -116,7 +116,7 @@ int ft_draw_map(t_data *data);
 void init_int_array(t_data *data);
 int ft_key_handler(int key, t_data *data);
 int ft_atoi_for_char(char c);
-
+void initialization_start_position(t_data *data, int i, int k);
 //parser
 
 
