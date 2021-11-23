@@ -10,35 +10,6 @@ int main(int argc, char **argv)
 	}
 	data = ft_init(argc, argv);
 
-	int i, j;
-	i =0;
-
-
-	while(i < data->maplines-1 )
-	{
-		j = 0;
-		while (j < (int)ft_stlen(data->map[i]))
-		{
-			printf("%d",data->map_array_int[i][j]);
-			j++;
-		}
-		i++;
-		printf("\n");
-	}
-	printf("CHAR ARRAY\n");
-	i = 0;
-	while(data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			printf("%c",data->map[i][j]);
-			j++;
-		}
-		i++;
-		printf("\n");
-	}
-
 	ft_start_game(data);
 
 	return 0;
@@ -91,7 +62,8 @@ void ft_start_game(t_data *data)
 
 	get_all_colors_texture(data, &data->arrays_for_color->color_north, data->north_texture.path);
 	get_all_colors_texture(data, &data->arrays_for_color->color_south, data->south_texture.path);
-
+	get_all_colors_texture(data, &data->arrays_for_color->color_west, data->west_texture.path);
+	get_all_colors_texture(data, &data->arrays_for_color->color_east, data->east_texture.path);
 
 	mlx_hook(data->mlx_win, 2, 1L << 0, ft_key_handler, data);
 	mlx_hook(data->mlx_win, 17, 1L << 17, ft_mlx_close, data);
@@ -119,8 +91,8 @@ int ft_game(t_data *data)
 		double side_dist_x;
 		double side_dist_y;
 
-		double delta_dist_x = (raydir_x == 0) ? 1e30 : fabs(1 / raydir_x);
-		double delta_dist_y = (raydir_y == 0) ? 1e30 : fabs(1 / raydir_y);
+		double delta_dist_x = fabs(1 / raydir_x);
+		double delta_dist_y = fabs(1 / raydir_y);
 
 		double perp_wall_dist;
 
@@ -161,17 +133,14 @@ int ft_game(t_data *data)
 				map_y += step_y;
 				side = 1;
 			}
-			//Check if ray has hit a wall
 			if (data->map_array_int[map_x][map_y] > 0 && data->map_array_int[map_x][map_y] != 5) {
 				hit = 1;
 			}
 		}
 		if (side == 0)
 			perp_wall_dist = (side_dist_x - delta_dist_x);
-//			perp_wall_dist = (map_x - data->start_position_int.pos_x + (1 - step_x) / 2) / data->start_position_int.dir_x;
 		else
 			perp_wall_dist = (side_dist_y - delta_dist_y);
-//			perp_wall_dist = (map_y - data->start_position_int.pos_y + (1 - step_y) / 2) / data->start_position_int.dir_y;
 		int line_height = (int) (PIXEL_HEIGHT / perp_wall_dist);
 
 		int draw_start = -line_height / 2 + PIXEL_HEIGHT / 2;
@@ -181,8 +150,6 @@ int ft_game(t_data *data)
 		if (draw_end >= PIXEL_HEIGHT)
 			draw_end = PIXEL_HEIGHT - 1;
 
-
-//		int tex_num = data->map_array_int[map_x][map_y] - 1;
 		double wall_x;
 		if (side == 0)
 			wall_x = data->start_position_int.pos_y + perp_wall_dist * raydir_y;
@@ -218,34 +185,34 @@ int ft_game(t_data *data)
 			else
 			{
 				if (step_y < 0)
-					color = data->arrays_for_color->color_north[tex_x][tex_y];
+					color = data->arrays_for_color->color_east[tex_x][tex_y];
 				else
-					color = data->arrays_for_color->color_south[tex_x][tex_y];
+					color = data->arrays_for_color->color_west[tex_x][tex_y];
 				color = (color >> 1) & 8355711;
 			}
 			my_mlx_pixel_put(&data->img_buffer, x, y, color);
 			y++;
 		}
+
+
 		int temp;
 		temp = 0;
 		while (temp < draw_start)
 		{
-			my_mlx_pixel_put(&data->img_buffer, x, temp, ft_rgb_handler(0, 154, 255));
+			my_mlx_pixel_put(&data->img_buffer, x, temp, ft_rgb_handler(data->ceiling.r, data->ceiling.g, data->ceiling.b));
 			temp++;
 		}
 		int k;
 		k = draw_end;
 		while (k < PIXEL_HEIGHT)
 		{
-			my_mlx_pixel_put(&data->img_buffer, x, k, ft_rgb_handler(119, 69, 3));
+			my_mlx_pixel_put(&data->img_buffer, x, k, ft_rgb_handler(data->floor.r, data->floor.g, data->floor.b));
 			k++;
 		}
 
 		x++;
 	}
-
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_buffer.img, 0, 0);
-//	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_map.img, ((PIXEL_WIDTH / 2) - ((data->size_map.width /2) * PIXEL_MAP)), (PIXEL_HEIGHT - (data->size_map.height * PIXEL_MAP)));
 	mlx_destroy_image(data->mlx, data->img_buffer.img);
 	return (0);
 }

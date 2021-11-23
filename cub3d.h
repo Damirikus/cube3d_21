@@ -18,9 +18,6 @@
 
 typedef struct s_xpm
 {
-	void	*img_ptr_xpm;
-	int		width_img;
-	int		height_img;
 	char 	*path;
 }			t_xpm;
 
@@ -42,14 +39,6 @@ typedef struct s_xy
 	double oldTime; // время предыдущего кадра
 }		t_xy;
 
-//typedef struct s_raycasting
-//{
-//	double camera_x;
-//	double raydir_x;
-//	double raydir_y;
-//	int map_x;
-//	int map_y;
-//} t_raycasting;
 
 typedef struct s_color
 {
