@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*                                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aantiloc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/24 14:32:00 by aantiloc          #+#    #+#             */
+/*   Updated: 2021/11/24 14:32:06 by aantiloc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-int parsing_gnl_line(t_data *d, char *line)
+int	parsing_gnl_line(t_data *d, char *line)
 {
-	int ret;
-	t_list *list;
+	int		ret;
+	t_list	*list;
 
 	if (d->color_flag != 2 || d->flag != 4)
 	{
@@ -20,7 +32,7 @@ int parsing_gnl_line(t_data *d, char *line)
 	{
 		list = ft_lstnew(line);
 		if (list == NULL)
-			return(-1);
+			return (-1);
 		ft_lstadd_back(&(d->list), list);
 	}
 	return (1);

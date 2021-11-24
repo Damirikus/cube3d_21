@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*                                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aantiloc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/24 14:32:00 by aantiloc          #+#    #+#             */
+/*   Updated: 2021/11/24 14:32:06 by aantiloc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-int map_error(int code)
+
+int	map_error(int code)
 {
 	if (code == -1)
 		printf("Error\nCan`t open map file\n");
@@ -15,7 +28,8 @@ int map_error(int code)
 		printf("Error\nAnother fail\n");
 	return (-1);
 }
-int			ft_empt(const char c)
+
+int	ft_empt(const char c)
 {
 	if ((c >= 9 && c <= 13) || c == 32)
 		return (c);
@@ -23,22 +37,22 @@ int			ft_empt(const char c)
 		return (0);
 }
 
-int			ft_str_empty(const char *line)
+int	ft_str_empty(const char *line)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (line[i])
 	{
 		if (ft_empt(line[i++]))
-			continue;
+			continue ;
 		else
 			return (0);
 	}
 	return (1);
 }
 
-int ft_atoi_for_char(char c)
+int	ft_atoi_for_char(char c)
 {
 	int	nb;
 
@@ -46,9 +60,8 @@ int ft_atoi_for_char(char c)
 	if (c >= 48 && c <= 57)
 		nb = 10 * nb + (c - 48);
 	else if (c == 'N' || c == 'W' || c == 'E' || c == 'S')
-			nb = 0;
+		nb = 0;
 	else
 		nb = 5;
 	return (nb);
 }
-

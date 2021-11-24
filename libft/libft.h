@@ -1,7 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*                                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aantiloc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/24 14:32:00 by aantiloc          #+#    #+#             */
+/*   Updated: 2021/11/24 14:32:06 by aantiloc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <unistd.h>
 # include <stdlib.h>
+
 typedef struct s_list
 {
 	void			*content;
@@ -59,7 +72,5 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list	*ft_lstnew(void *content);
-int	ft_lstsize(t_list *lst);
-
-
+int		ft_lstsize(t_list *lst);
 #endif

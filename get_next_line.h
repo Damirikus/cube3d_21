@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*                                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aantiloc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/24 14:32:00 by aantiloc          #+#    #+#             */
+/*   Updated: 2021/11/24 14:32:06 by aantiloc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
@@ -5,6 +17,7 @@
 # endif
 # include <stdlib.h>
 # include <unistd.h>
+
 int		get_next_line(int fd, char **line);
 int		ft_stlen(const char *s);
 int		ft_str_chr(const char *s);

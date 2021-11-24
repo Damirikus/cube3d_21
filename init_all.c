@@ -12,7 +12,6 @@
 
 #include "cub3d.h"
 
-
 t_data *ft_init(int argc, char **argv)
 {
 
