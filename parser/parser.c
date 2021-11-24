@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	confirm_pars(t_data *d)
 {
@@ -71,8 +71,8 @@ int	check_path(char *path, t_xpm *x, t_data *d)
 	{
 		d->flag += 1;
 		x->path = ft_strdup(path);
+		free(path);
 		return (1);
 	}
-	printf("Error\nPath - %s is already exist\n", path);
 	return (-1);
 }

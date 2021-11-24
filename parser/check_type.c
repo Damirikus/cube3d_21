@@ -10,33 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-int	list_to_map(int argc, t_data *d)
+void	check_type(char *argv)
 {
-	t_list	*head;
-	t_list	*next;
+	char	*tmp;
 
-	argc = 0;
-	head = d->list;
-	while (ft_str_empty(head->content))
+	tmp = NULL;
+	if (!argv)
 	{
-		free(head->content);
-		next = head->next;
-		free(head);
-		head = next;
+		printf("Error: Put map into program arguments! \n");
+		printf("Example: ./cub3d ""\"de_dust2.cub""\" \n");
+		exit(1);
 	}
-	d->maplines = ft_lstsize(head);
-	d->map = (char **)malloc(sizeof(char *) * (d->maplines + 1));
-	if (!d->map)
-		return (-1);
-	while (argc < d->maplines)
+	else
 	{
-		d->map[argc++] = head->content;
-		next = head->next;
-		free(head);
-		head = next;
+		tmp = ft_substr(argv, (ft_strlen(argv) - 4), ft_strlen(argv));
+		if (tmp[0] != '.' || tmp[1] != 'c' || tmp[2] != 'u' || tmp[3] != 'b')
+		{
+			printf("Error: Only ""\".cub""\" map extension allowed \n");
+			free(tmp);
+			exit(1);
+		}
+		free(tmp);
 	}
-	d->map[d->maplines] = 0;
-	return (1);
 }

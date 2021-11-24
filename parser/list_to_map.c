@@ -10,58 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-int	map_error(int code)
+int	list_to_map(int argc, t_data *d)
 {
-	if (code == -1)
-		printf("Error\nCan`t open map file\n");
-	else if (code == -2)
-		printf("Error\ncan`t read map from file\n");
-	else if (code == -3)
-		printf("Error\ninvalid xpm path or colors\n");
-	else if (code == -4)
-		printf("Error\nlist to array\n");
-	else if (code == -5)
-		printf("Error\nInvalid map\n");
-	else
-		printf("Error\nAnother fail\n");
-	return (-1);
-}
+	t_list	*head;
+	t_list	*next;
 
-int	ft_empt(const char c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (c);
-	else
-		return (0);
-}
-
-int	ft_str_empty(const char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
+	argc = 0;
+	head = d->list;
+	while (ft_str_empty(head->content))
 	{
-		if (ft_empt(line[i++]))
-			continue ;
-		else
-			return (0);
+		free(head->content);
+		next = head->next;
+		free(head);
+		head = next;
 	}
+	d->maplines = ft_lstsize(head);
+	d->map = (char **)malloc(sizeof(char *) * (d->maplines + 1));
+	if (!d->map)
+		return (-1);
+	while (argc < d->maplines)
+	{
+		d->map[argc++] = head->content;
+		next = head->next;
+		free(head);
+		head = next;
+	}
+	d->map[d->maplines] = 0;
 	return (1);
-}
-
-int	ft_atoi_for_char(char c)
-{
-	int	nb;
-
-	nb = 0;
-	if (c >= 48 && c <= 57)
-		nb = 10 * nb + (c - 48);
-	else if (c == 'N' || c == 'W' || c == 'E' || c == 'S')
-		nb = 0;
-	else
-		nb = 5;
-	return (nb);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static int	check_allow_char(char **map, int i, int j, t_data *d);
 static int	check_pos(char **map, t_data *d, int i, int j);

@@ -10,28 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-void	check_type(char *argv)
+int	check_color(char *line, t_color *c, t_data *d)
 {
-	char	*tmp;
+	char	**colors;
 
-	tmp = NULL;
-	if (!argv)
+	colors = NULL;
+	if (c->r != 0 || c->g != 0 || c->b != 0)
 	{
-		printf("Error: Put map into program arguments! \n");
-		printf("Example: ./cub3d ""\"de_dust2.cub""\" \n");
-		exit(1);
+		printf("Error\nColor already exist\n");
+		return (-99);
 	}
-	else
+	colors = ft_split(line, ',');
+	c->r = ft_atoi(colors[0]);
+	c->g = ft_atoi(colors[1]);
+	c->b = ft_atoi(colors[2]);
+	if (c->r < 0 || c->g < 0 || c->b < 0
+		|| c->r > 255 || c->g > 255 || c->b > 255)
 	{
-		tmp = ft_substr(argv, (ft_strlen(argv) - 4), ft_strlen(argv));
-		if (tmp[0] != '.' || tmp[1] != 'c' || tmp[2] != 'u' || tmp[3] != 'b')
-		{
-			printf("Error: Only ""\".cub""\" map extension allowed \n");
-			free(tmp);
-			exit(1);
-		}
-		free(tmp);
+		printf("Error\nIvalid color\n");
+		return (-100);
 	}
+	free(colors[0]);
+	free(colors[1]);
+	free(colors[2]);
+	free(colors);
+	d->color_flag += 1;
+	free(line);
+	return (1);
 }

@@ -3,7 +3,7 @@
 
 # include "./libft/libft.h"
 # include "./minilibx/mlx.h"
-# include "get_next_line.h"
+# include "./get_next_line/get_next_line.h"
 # include <fcntl.h>
 # include <math.h>
 #include <stdio.h>
@@ -35,8 +35,7 @@ typedef struct s_xy
 	double dir_y;
 	double plane_x;
 	double plane_y;
-	double time; // время текущего кадра
-	double oldTime; // время предыдущего кадра
+
 }		t_xy;
 
 
@@ -65,6 +64,34 @@ typedef struct s_arrays
 
 }t_arrays;
 
+
+typedef struct s_all
+{
+	double camera_x;
+	double raydir_x;
+	double raydir_y;
+	int map_x;
+	int map_y;
+	double side_dist_x;
+	double side_dist_y;
+	double delta_dist_x;
+	double delta_dist_y;
+	double perp_wall_dist;
+	int step_x;
+	int step_y;
+	int hit;
+	int side;
+	int line_height;
+	int draw_start;
+	int draw_end;
+	double wall_x;
+	int tex_x;
+	int tex_y;
+	double step;
+	double tex_pos;
+} t_all;
+
+
 typedef struct s_data
 {
 	t_list			*list;
@@ -79,7 +106,7 @@ typedef struct s_data
 	int 	color_flag;
 	int 	close_flag;
 
-
+	t_all all;
 
 	void			*mlx;
 	void			*mlx_win;
@@ -117,6 +144,24 @@ void init_int_array(t_data *data);
 int ft_key_handler(int key, t_data *data);
 int ft_atoi_for_char(char c);
 void initialization_start_position(t_data *data, int i, int k);
+
+void ft_free_mini(t_data *data);
+void ft_free_all(t_data *data);
+void ft_free_all_part(t_data *data);
+void init_start_param(t_data *data, int x);
+void draw_texture(t_data *data, int x);
+void draw_texture_part(t_data *data, int *color);
+void draw_floor_ceiling(t_data *data,  int x);
+void get_texture_color(t_data *data);
+int	get_all_colors_texture(t_data *data, int ***colors, char *path);
+void get_start_end_draw(t_data *data);
+void find_hit(t_data *data);
+void side_dist(t_data *data);
+
+void turn_right(t_data *data);
+void turn_left(t_data *data);
+void move_down(t_data *data);
+void move_up(t_data *data);
 //parser
 
 
