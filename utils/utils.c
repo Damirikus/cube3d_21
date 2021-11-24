@@ -15,11 +15,11 @@
 int	map_error(int code)
 {
 	if (code == -1)
-		printf("Error\nCan`t open map file\n");
+		printf("Error\nmap file\n");
 	else if (code == -2)
 		printf("Error\ncan`t read map from file\n");
-	else if (code == -3)
-		printf("Error\ninvalid xpm path or colors\n");
+	else if (code == -22)
+		printf("Error\ninvalid color\n");
 	else if (code == -4)
 		printf("Error\nlist to array\n");
 	else if (code == -5)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*                                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sdominqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/24 14:32:00 by sdominqu          #+#    #+#             */
+/*   Updated: 2021/11/24 14:32:06 by sdominqu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	main(int argc, char **argv)
@@ -12,30 +24,36 @@ int	main(int argc, char **argv)
 	data = ft_init(argc, argv);
 	if (!data)
 		return (0);
-	ft_start_game(data);
+	if (ft_start_game(data))
+		printf("Invalid path\n");
 	return (0);
 }
 
-void	ft_start_game(t_data *data)
+int	ft_start_game(t_data *data)
 {
 	data->mlx = mlx_init();
 	data->mlx_win = mlx_new_window(data->mlx, PIXEL_WIDTH, \
 	PIXEL_HEIGHT, "Cube 3D");
 	ft_draw_map(data);
-	get_all_colors_texture(data, &data->arrays_for_color->color_north, \
-	data->north_texture.path);
-	get_all_colors_texture(data, &data->arrays_for_color->color_south, \
-	data->south_texture.path);
-	get_all_colors_texture(data, &data->arrays_for_color->color_west, \
-	data->west_texture.path);
-	get_all_colors_texture(data, &data->arrays_for_color->color_east, \
-	data->east_texture.path);
+	if (get_all_colors_texture(data, &data->arrays_for_color->color_north, \
+	data->north_texture.path))
+		return (1);
+	if (get_all_colors_texture(data, &data->arrays_for_color->color_south, \
+	data->south_texture.path))
+		return (1);
+	if (get_all_colors_texture(data, &data->arrays_for_color->color_west, \
+	data->west_texture.path))
+		return (1);
+	if (get_all_colors_texture(data, &data->arrays_for_color->color_east, \
+	data->east_texture.path))
+		return (1);
 	mlx_hook(data->mlx_win, 2, 1L << 0, \
 	ft_key_handler, data);
 	mlx_hook(data->mlx_win, 17, 1L << 17, \
 	ft_mlx_close, data);
 	mlx_loop_hook(data->mlx, ft_game, data);
 	mlx_loop(data->mlx);
+	return (0);
 }
 
 int	ft_game(t_data *data)

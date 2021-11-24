@@ -12,26 +12,60 @@
 
 #include "../cub3d.h"
 
+static int	color_cycle(char **colors)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (colors[i] != NULL)
+	{
+		j = 0;
+		while (colors[i][j])
+		{
+			if (colors[i][j] < 48 || colors[i][j] > 57)
+				return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (i);
+}
+
+static int	counter(char *line)
+{
+	int	i;
+	int	c;
+
+	c = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == ',')
+			c++;
+		i++;
+	}
+	return (c);
+}
+
 int	check_color(char *line, t_color *c, t_data *d)
 {
 	char	**colors;
 
 	colors = NULL;
 	if (c->r != 0 || c->g != 0 || c->b != 0)
-	{
-		printf("Error\nColor already exist\n");
-		return (-99);
-	}
+		return (map_error(-22));
+	if (counter(line) != 2)
+		return (map_error(-22));
 	colors = ft_split(line, ',');
 	c->r = ft_atoi(colors[0]);
 	c->g = ft_atoi(colors[1]);
 	c->b = ft_atoi(colors[2]);
+	if (color_cycle(colors) == -1)
+		return (map_error(-22));
 	if (c->r < 0 || c->g < 0 || c->b < 0
 		|| c->r > 255 || c->g > 255 || c->b > 255)
-	{
-		printf("Error\nIvalid color\n");
-		return (-100);
-	}
+		return (map_error(-22));
 	free(colors[0]);
 	free(colors[1]);
 	free(colors[2]);

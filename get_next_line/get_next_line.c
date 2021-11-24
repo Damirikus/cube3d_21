@@ -12,38 +12,75 @@
 
 #include "get_next_line.h"
 
-int	ft_stlen(const char *s)
+static int	get_index(char *str)
 {
-	int	len;
+	int	i;
 
-	len = 0;
-	if (!s)
-		return (0);
-	while (s[len])
-		len++;
-	return (len);
+	i = 0;
+	while (str[i] != '\0' && str[i] != '\n')
+		i++;
+	return (i);
 }
 
-int	get_next_line(int fd, char **line)
+static int	fun(const int fd, char **line, char *buffer, char **prev_str)
 {
-	static char	*temp;
-	char		buf[BUFFER_SIZE + 1];
-	int			res;
+	int		fdx;
+	int		index;
 
-	res = 1;
-	if (!line || fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
-		return (-1);
-	while (!ft_str_chr(temp) && res)
+	fdx = read(fd, buffer, BUFFER_SIZE);
+	while (fdx > 0)
 	{
-		res = read(fd, buf, BUFFER_SIZE);
-		buf[res] = '\0';
-		temp = ft_join(temp, buf);
-		if (!temp)
-			return (-1);
+		buffer[fdx] = '\0';
+		index = get_index(buffer);
+		*line = ft_strjoin1(*line, buffer, index);
+		if (index != (int)ft_strlen1(buffer))
+		{
+			*prev_str = ft_strdup1(buffer + index + 1);
+			return (1);
+		}
+		fdx = read(fd, buffer, BUFFER_SIZE);
 	}
-	*line = ft_push_to_line(temp);
-	temp = ft_remove_to_n(temp);
-	if (res == 0)
-		return (0);
-	return (1);
+	if (fdx == 0 || (fdx == -1 && !(*prev_str)))
+		free(*prev_str);
+	return (fdx);
+}
+
+static int	solve(const int fd, char **line, char **prev_str)
+{
+	int		index;
+	char	*temp;
+	char	buffer[BUFFER_SIZE + 1];
+
+	if (*prev_str != NULL)
+	{
+		index = get_index(*prev_str);
+		*line = ft_strjoin1(*line, *prev_str, index);
+		if (index != (int)ft_strlen1(*prev_str))
+		{
+			temp = *prev_str;
+			*prev_str = ft_strdup1(*prev_str + index + 1);
+			free(temp);
+			return (1);
+		}
+		free(*prev_str);
+		*prev_str = NULL;
+	}
+	return (fun(fd, line, buffer, prev_str));
+}
+
+int	get_next_line(const int fd, char **line)
+{
+	int			fdx;
+	static char	*prev_str = NULL;
+
+	if (BUFFER_SIZE <= 0 || line == NULL)
+		return (-1);
+	*line = 0;
+	fdx = solve(fd, line, &prev_str);
+	if (fdx == 0 && !(*line))
+	{
+		*line = malloc(1);
+		*line[0] = '\0';
+	}
+	return (fdx);
 }

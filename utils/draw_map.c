@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*                                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sdominqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/24 14:32:00 by sdominqu          #+#    #+#             */
+/*   Updated: 2021/11/24 14:32:06 by sdominqu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
-int ft_draw_map(t_data *data)
+int	ft_draw_map(t_data *data)
 {
-	int i;
-	int k;
+	int	i;
+	int	k;
 
 	i = 0;
 	while (data->map[i])
@@ -20,15 +32,14 @@ int ft_draw_map(t_data *data)
 			}
 			else
 				initialization_start_position(data, i, k);
-
 			k++;
 		}
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
-void initialization_start_position(t_data *data, int i, int k)
+void	initialization_start_position(t_data *data, int i, int k)
 {
 	if (data->map[i][k] == 'S')
 	{

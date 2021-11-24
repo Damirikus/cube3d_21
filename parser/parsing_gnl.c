@@ -17,7 +17,7 @@ int	parsing_gnl_line(t_data *d, char *line)
 	int		ret;
 	t_list	*list;
 
-	if (d->color_flag != 2 || d->flag != 4)
+	if (d->color_flag < 2 || d->flag < 4)
 	{
 		if (ft_str_empty(line) != 0)
 		{

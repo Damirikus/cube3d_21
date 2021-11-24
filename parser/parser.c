@@ -23,6 +23,7 @@ int	confirm_pars(t_data *d)
 int	parser(int argc, char **argv, t_data *d)
 {
 	int		fd;
+	int		res;
 	char	*line;
 
 	d->flag = 0;
@@ -33,13 +34,12 @@ int	parser(int argc, char **argv, t_data *d)
 	while (argc > 0)
 	{
 		argc = get_next_line(fd, &line);
-		if (!parsing_gnl_line(d, line))
-			break ;
+		res = parsing_gnl_line(d, line);
+		if (res == -1)
+			return (-1);
 	}
 	close(fd);
-	if (argc == -1)
-		return (map_error(-2));
-	if (confirm_pars(d) == -1)
+	if (confirm_pars(d) == -1 || argc == -1)
 		return (map_error(-3));
 	if (list_to_map(argc, d) == -1)
 		return (map_error(-4));
