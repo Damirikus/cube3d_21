@@ -53,9 +53,6 @@ static char	**set_colors(char *line)
 	char	**colors;
 
 	colors = ft_split(line, ',');
-	colors[0] = ft_strtrim(colors[0], " ");
-	colors[1] = ft_strtrim(colors[1], " ");
-	colors[2] = ft_strtrim(colors[2], " ");
 	if (!colors[0] || !colors[1] || !colors[2])
 		return (NULL);
 	if (colors[0][0] == '\0' || colors[1][0] == '\0' || colors[2][0] == '\0')
@@ -83,11 +80,12 @@ int	check_color(char *line, t_color *c, t_data *d)
 	if (c->r < 0 || c->g < 0 || c->b < 0
 		|| c->r > 255 || c->g > 255 || c->b > 255)
 		return (map_error(-22));
+	d->color_flag += 1;
 	free(colors[0]);
 	free(colors[1]);
 	free(colors[2]);
 	free(colors);
-	d->color_flag += 1;
 	free(line);
+
 	return (1);
 }

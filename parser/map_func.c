@@ -69,7 +69,23 @@ static int	check_pos(char **map, t_data *d, int i, int j)
 			return (-1);
 		if (map[i][j] == '0' && map[i][j - 1] == ' ')
 			return (-1);
+		if (map[i][j] == 'N' && map[i][j - 1] == ' ')
+			return (-1);
+		if (map[i][j] == 'S' && map[i][j - 1] == ' ')
+			return (-1);
+		if (map[i][j] == 'W' && map[i][j - 1] == ' ')
+			return (-1);
+		if (map[i][j] == 'E' && map[i][j - 1] == ' ')
+			return (-1);
 		if (map[i][j] == '0' && map[i][j + 1] == ' ')
+			return (-1);
+		if (map[i][j] == 'N' && map[i][j + 1] == ' ')
+			return (-1);
+		if (map[i][j] == 'S' && map[i][j + 1] == ' ')
+			return (-1);
+		if (map[i][j] == 'E' && map[i][j + 1] == ' ')
+			return (-1);
+		if (map[i][j] == 'W' && map[i][j + 1] == ' ')
 			return (-1);
 	}
 	return (1);
