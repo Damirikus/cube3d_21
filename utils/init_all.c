@@ -17,9 +17,33 @@ t_data	*ft_init(int argc, char **argv)
 	t_data	*data;
 
 	data = malloc(sizeof(t_data));
+
+	data->all.camera_x = 0;
+	data->all.draw_end = 0;
+	data->all.draw_start = 0;
+	data->all.delta_dist_x = 0;
+	data->all.delta_dist_y = 0;
+	data->all.raydir_x = 0;
+	data->all.raydir_y = 0;
+	data->all.wall_x = 0;
+	data->all.hit = 0;
+	data->all.tex_y = 0;
+	data->all.tex_x = 0;
+	data->all.tex_pos = 0;
+	data->all.step_y = 0;
+	data->all.step_x = 0;
+	data->all.side_dist_y = 0;
+	data->all.side_dist_x = 0;
+	data->all.side = 0;
+	data->all.step = 0;
+	data->all.line_height = 0;
+	data->all.perp_wall_dist = 0;
+	data->all.map_x = 0;
+	data->all.map_y = 0;
+
+
 	data->arrays_for_color = malloc(sizeof(t_arrays));
-	data->start_position_int.plane_x = 0;
-	data->start_position_int.plane_y = 0.7;
+
 	check_type(argv[1]);
 	if (parser(argc, argv, data) == -1)
 	{

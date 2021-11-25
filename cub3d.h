@@ -41,12 +41,12 @@ typedef struct s_size_map
 
 typedef struct s_xy
 {
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
+	long double	pos_x;
+	long double	pos_y;
+	long double	dir_x;
+	long double	dir_y;
+	long double	plane_x;
+	long double	plane_y;
 }				t_xy;
 
 typedef struct s_color
@@ -134,7 +134,7 @@ char			**init_map_array(char *filename, t_data *main);
 int				ft_qw_line(int fd);
 int				ft_mlx_close(t_data *data);
 void			my_mlx_pixel_put(t_img_addr *img, int x, int y, int color);
-int			ft_start_game(t_data *data);
+int				ft_start_game(t_data *data);
 int				ft_game(t_data *data);
 int				ft_rgb_handler(int r, int g, int b);
 void			cut_array(t_data *data);
@@ -171,4 +171,6 @@ int				check_color(char *line, t_color *c, t_data *d);
 int				ft_str_empty(const char *line);
 int				ft_empt(const char c);
 int				map_error(int code);
+void			part_part(t_data *data, int i, int k);
+void			init_start_null(t_data *data);
 #endif

@@ -24,6 +24,7 @@ int	main(int argc, char **argv)
 	data = ft_init(argc, argv);
 	if (!data)
 		return (0);
+
 	if (ft_start_game(data))
 		printf("Invalid path\n");
 	return (0);
@@ -60,6 +61,8 @@ int	ft_game(t_data *data)
 {
 	int	x;
 
+
+	init_start_null(data);
 	data->img_buffer.img = mlx_new_image(data->mlx, PIXEL_WIDTH, PIXEL_HEIGHT);
 	data->img_buffer.addr = mlx_get_data_addr(data->img_buffer.img, \
 	&data->img_buffer.bits_per_pixel, &data->img_buffer.line_length, \
@@ -80,4 +83,30 @@ int	ft_game(t_data *data)
 	0, 0);
 	mlx_destroy_image(data->mlx, data->img_buffer.img);
 	return (0);
+}
+
+void init_start_null(t_data *data)
+{
+	data->all.camera_x = 0;
+	data->all.draw_end = 0;
+	data->all.draw_start = 0;
+	data->all.delta_dist_x = 0;
+	data->all.delta_dist_y = 0;
+	data->all.raydir_x = 0;
+	data->all.raydir_y = 0;
+	data->all.wall_x = 0;
+	data->all.hit = 0;
+	data->all.tex_y = 0;
+	data->all.tex_x = 0;
+	data->all.tex_pos = 0;
+	data->all.step_y = 0;
+	data->all.step_x = 0;
+	data->all.side_dist_y = 0;
+	data->all.side_dist_x = 0;
+	data->all.side = 0;
+	data->all.step = 0;
+	data->all.line_height = 0;
+	data->all.perp_wall_dist = 0;
+	data->all.map_x = 0;
+	data->all.map_y = 0;
 }
