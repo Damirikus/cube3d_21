@@ -1,7 +1,7 @@
-WE ./images/WALL17.xpm
-NO  ./images/WALL74_1.xpm
-EA ./images/WALL67.xpm
-SO ./images/WALL77_2.xpm
+NO        ./xpm/kaneki.xpm
+SO          ./xpm/owl.xpm
+WE ./xpm/su.xpm
+EA ./xpm/rize.xpm
 
 C 57, 125, 220
 F 25, 25, 35

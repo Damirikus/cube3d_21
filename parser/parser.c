@@ -36,7 +36,7 @@ int	parser(int argc, char **argv, t_data *d)
 		argc = get_next_line(fd, &line);
 		res = parsing_gnl_line(d, line);
 		if (res == -1)
-			return (-1);
+			return (map_error(-3));
 	}
 	close(fd);
 	if (confirm_pars(d) == -1 || argc == -1)
@@ -58,19 +58,29 @@ int	parsing_path(t_data *d, char *line)
 		return (check_path(ft_strtrim(line + 2, " "), &d->east_texture, d));
 	else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
 		return (check_path(ft_strtrim(line + 2, " "), &d->west_texture, d));
-	if (line[0] == 'F' && line[1] == ' ')
+	if (line[0] == 'F' && line[1] == ' ' )
 		return (check_color(ft_strtrim(line + 1, " "), &d->floor, d));
 	else if (line[0] == 'C' && line[1] == ' ')
 		return (check_color(ft_strtrim(line + 1, " "), &d->ceiling, d));
+	if (d->color_flag == 1 || (d->flag >= 1 && d->flag <= 4) || !d->flag)
+		return (-1);
 	return (0);
 }
 
 int	check_path(char *path, t_xpm *x, t_data *d)
 {
+	int i;
+
+	i = 0;
 	if (x->path == NULL)
 	{
+		if (path[i] == ' ')
+		{
+			while (path[i] == ' ')
+				i++;
+		}
 		d->flag += 1;
-		x->path = ft_strdup(path);
+		x->path = ft_strdup(&path[i]);
 		free(path);
 		return (1);
 	}

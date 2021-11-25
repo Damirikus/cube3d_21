@@ -18,16 +18,18 @@ static int	is_closed(char **map, t_data *d, int i, int j);
 
 int	valid_map(char **map, int i, int j, t_data *d)
 {
+	printf("check\n");
 	d->player = 0;
-	while (map[i])
+	while (i < d->maplines -1)
 	{
+		printf("%s\n", map[i]);
 		j = 0;
 		if (i != 0)
 			d->strlen_up = (int)ft_strlen(d->map[i - 1]);
 		if (i < (d->maplines - 1))
 			d->strlen_bot = (int)ft_strlen(d->map[i + 1]);
 		d->map_str_len = (int)ft_strlen(d->map[i]);
-		while (map[i][j] != 0)
+		while (map[i][j] != '\0')
 		{
 			if (check_allow_char(map, i, j, d) == -1)
 				return (-1);
@@ -78,18 +80,18 @@ static int	check_pos(char **map, t_data *d, int i, int j)
 static int	is_closed(char **map, t_data *d, int i, int j)
 {
 	if (i == 0 && map[i + 1][j] == '0' && map[i][j] != '1')
-		return (-1);
+		return(-1);
 	if (map[i][j] == ' ' && map[i + 1][j] == '0')
-		return (-1);
+		return(-1);
 	if (i > 0 && map[i][j] == ' ' && map[i - 1][j] == '0')
-		return (-1);
+		return(-1);
 	if (map[i][j] == '0' && ft_strlen(map[i - 1]) <= j)
-		return (-1);
+		return(-1);
 	if (map[i][j] == '0' && ft_strlen(map[i + 1]) <= j)
-		return (-1);
+		return(-1);
 	if (map[i][j] == '0' && map[i][j - 1] == ' ')
-		return (-1);
+		return(-1);
 	if (map[d->maplines - 2][j] == '0' && map[d->maplines -1][j] != '1')
-		return (-1);
+		return(-1);
 	return (1);
 }

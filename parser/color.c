@@ -18,7 +18,7 @@ static int	color_cycle(char **colors)
 	int	j;
 
 	i = 0;
-	while (colors[i] != NULL)
+	while (colors[i])
 	{
 		j = 0;
 		while (colors[i][j])
@@ -47,6 +47,20 @@ static int	counter(char *line)
 	}
 	return (c);
 }
+static char **set_colors(char *line)
+{
+	char **colors;
+
+	colors = ft_split(line, ',');
+	colors[0] = ft_strtrim(colors[0], " ");
+	colors[1] = ft_strtrim(colors[1], " ");
+	colors[2] = ft_strtrim(colors[2], " ");
+	if (!colors[0] || !colors[1] || !colors[2])
+		return (NULL);
+	if (colors[0][0] == '\0'|| colors[1][0] == '\0' || colors[2][0] == '\0')
+		return (NULL);
+	return (colors);
+}
 
 int	check_color(char *line, t_color *c, t_data *d)
 {
@@ -57,12 +71,14 @@ int	check_color(char *line, t_color *c, t_data *d)
 		return (map_error(-22));
 	if (counter(line) != 2)
 		return (map_error(-22));
-	colors = ft_split(line, ',');
+	colors = set_colors(line);
+	if (!colors)
+		return (map_error(-22));
+	if (color_cycle(colors) == -1)
+		return (-1);
 	c->r = ft_atoi(colors[0]);
 	c->g = ft_atoi(colors[1]);
 	c->b = ft_atoi(colors[2]);
-	if (color_cycle(colors) == -1)
-		return (map_error(-22));
 	if (c->r < 0 || c->g < 0 || c->b < 0
 		|| c->r > 255 || c->g > 255 || c->b > 255)
 		return (map_error(-22));

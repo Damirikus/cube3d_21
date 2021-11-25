@@ -18,6 +18,8 @@ int	map_error(int code)
 		printf("Error\nmap file\n");
 	else if (code == -2)
 		printf("Error\ncan`t read map from file\n");
+	else if (code == -3)
+		printf("Error\nparams fail\n");
 	else if (code == -22)
 		printf("Error\ninvalid color\n");
 	else if (code == -4)
