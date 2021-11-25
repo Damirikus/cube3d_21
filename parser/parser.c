@@ -69,7 +69,7 @@ int	parsing_path(t_data *d, char *line)
 
 int	check_path(char *path, t_xpm *x, t_data *d)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (x->path == NULL)

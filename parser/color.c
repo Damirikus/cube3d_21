@@ -47,9 +47,10 @@ static int	counter(char *line)
 	}
 	return (c);
 }
-static char **set_colors(char *line)
+
+static char	**set_colors(char *line)
 {
-	char **colors;
+	char	**colors;
 
 	colors = ft_split(line, ',');
 	colors[0] = ft_strtrim(colors[0], " ");
@@ -57,7 +58,7 @@ static char **set_colors(char *line)
 	colors[2] = ft_strtrim(colors[2], " ");
 	if (!colors[0] || !colors[1] || !colors[2])
 		return (NULL);
-	if (colors[0][0] == '\0'|| colors[1][0] == '\0' || colors[2][0] == '\0')
+	if (colors[0][0] == '\0' || colors[1][0] == '\0' || colors[2][0] == '\0')
 		return (NULL);
 	return (colors);
 }

@@ -24,7 +24,6 @@ int	main(int argc, char **argv)
 	data = ft_init(argc, argv);
 	if (!data)
 		return (0);
-
 	if (ft_start_game(data))
 		printf("Invalid path\n");
 	return (0);
@@ -61,13 +60,12 @@ int	ft_game(t_data *data)
 {
 	int	x;
 
-
+	x = 0;
 	init_start_null(data);
 	data->img_buffer.img = mlx_new_image(data->mlx, PIXEL_WIDTH, PIXEL_HEIGHT);
 	data->img_buffer.addr = mlx_get_data_addr(data->img_buffer.img, \
 	&data->img_buffer.bits_per_pixel, &data->img_buffer.line_length, \
 	&data->img_buffer.endian);
-	x = 0;
 	while (x < PIXEL_WIDTH)
 	{
 		init_start_param(data, x);
@@ -85,7 +83,7 @@ int	ft_game(t_data *data)
 	return (0);
 }
 
-void init_start_null(t_data *data)
+void	init_start_null(t_data *data)
 {
 	data->all.camera_x = 0;
 	data->all.draw_end = 0;

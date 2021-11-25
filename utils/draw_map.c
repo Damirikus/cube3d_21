@@ -23,7 +23,6 @@ int	ft_draw_map(t_data *data)
 		k = 0;
 		while (k < ft_strlen(data->map[i]))
 		{
-
 			if (data->map[i][k] == 'W')
 			{
 				data->start_position_int.pos_x = i + 0.5;
@@ -62,14 +61,11 @@ void	initialization_start_position(t_data *data, int i, int k)
 		data->start_position_int.plane_x = 0;
 		data->start_position_int.plane_y = -0.7;
 	}
-	else {
+	else
 		part_part(data, i, k);
-	}
-
 }
 
-
-void part_part(t_data *data, int i, int k)
+void	part_part(t_data *data, int i, int k)
 {
 	if (data->map[i][k] == 'N')
 	{
