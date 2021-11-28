@@ -47,6 +47,20 @@ int	ft_start_game(t_data *data)
 	if (get_all_colors_texture(data, &data->arrays_for_color->color_east, \
 	data->east_texture.path))
 		return (1);
+
+
+	if (get_all_colors_texture(data, &data->arrays_for_color->color_north2, \
+	"./xpm/1.xpm"))
+		return (1);
+	if (get_all_colors_texture(data, &data->arrays_for_color->color_south2, \
+	"./xpm/2.xpm"))
+		return (1);
+	if (get_all_colors_texture(data, &data->arrays_for_color->color_west2, \
+	"./xpm/3.xpm"))
+		return (1);
+	if (get_all_colors_texture(data, &data->arrays_for_color->color_east2, \
+	"./xpm/4.xpm"))
+		return (1);
 	mlx_hook(data->mlx_win, 2, 1L << 0, \
 	ft_key_handler, data);
 	mlx_hook(data->mlx_win, 17, 1L << 17, \

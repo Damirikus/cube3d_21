@@ -1,7 +1,7 @@
-NO        ./xpm/kaneki.xpm
-SO          ./xpm/owl.xpm
-WE ./xpm/su.xpm
-EA ./xpm/rize.xpm
+NO ./xpm/ken1.xpm
+SO ./xpm/ken2.xpm
+WE ./xpm/js.xpm
+EA ./xpm/touka.xpm
 
 C 57, 125, 220
 F 25, 25, 35

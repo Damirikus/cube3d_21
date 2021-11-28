@@ -21,12 +21,12 @@
 # include <stdio.h>
 
 # define PIXEL_MAP 16
-# define PIXEL_WIDTH 1920
-# define PIXEL_HEIGHT 1080
+# define PIXEL_WIDTH 1500
+# define PIXEL_HEIGHT 800
 # define MOVE_SPEED 0.1
 # define ROT_SPEED 0.06
-# define TEX_WIDTH 128
-# define TEX_HEIGHT 128
+# define TEX_WIDTH 1024
+# define TEX_HEIGHT 1024
 
 typedef struct s_xpm
 {
@@ -71,6 +71,11 @@ typedef struct s_arrays
 	int		**color_south;
 	int		**color_west;
 	int		**color_east;
+
+	int		**color_north2;
+	int		**color_south2;
+	int		**color_west2;
+	int		**color_east2;
 }				t_arrays;
 
 typedef struct s_all
